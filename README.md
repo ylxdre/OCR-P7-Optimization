@@ -1,6 +1,6 @@
 # AlgoInvest&Trade
 
-Choix optimal parmi une liste d'actions
+Déterminer un choix optimal d'actions caractérisées par un coût et un rendement, en fonction d'un coût maximum pour un profit maximal 
 
 ## Introduction
 
@@ -15,66 +15,56 @@ Ces instructions vous permettent de :
 
 ```
 paquets : python 3.11, python3.11-venv, git 
-modules : python requests, BeautifulSoup, csv, os
+modules : csv
 ```
 
 ### Installation
 
-Voici les étapes à suivre pour avoir un environnement d'exécution opérationnel :
-
-créer l'environnement virtuel 
-
+1. créer l'environnement virtuel :
 ```
 python3.11 -m venv env
 source env/bin/activate
 ```
-cloner le dépôt, aller dans le bon dossier
+2. cloner le dépôt :
 ```
-git clone https://mcstn.fr/gitea/Yann/Projet2.git
-cd Projet2/rendu
+git clone https://mcstn.fr/gitea/Yann/Projet7.git
 ```
-installer les modules
-```
-pip install -r requirements.txt
-```
+
 
 ## Exécution
-
+ 
+Pour l'algorithme bruteforce sur le dataset0, 
 exécuter la commande :
 ```
-python3 main.py
+python3 bruteforce.py
+```  
+
+Pour l'algorithme de DP, executer la commande : 
 ```
+python3 optimized.py
+``` 
+
 
 ## Résultat
 
-Les fichiers sont placés dans un répertoire "resultat"
-
-Le programme récupère les catégories sur la page d'accueil de l'URL, puis, pour chaque catégorie : 
-1. affiche la catégorie traitée, le nombre de catégories restantes, de livres présents, traités au total et restants
-2. crée un dossier du nom de la catégorie, y enregistre les images des livres nommées en fonction du titre
-3. crée un fichier csv au nom de la catégorie, avec :
-   - product_page_url
-   - universal_ product_code (upc)
-   - title
-   - price_including_tax
-   - price_excluding_tax
-   - number_available
-   - product_description
-   - category
-   - review_rating
-   - image_url
-
+Optimized traite par défaut les datasets 1 et 2;
+Décommenter la ligne du dataset0 dans le main() si besoin
 ```
-$ time python3.11 main.py 
-1000  à traiter répartis en  50  catégories.
+$ time python optimized.py 
 
-[ ... ]
+DATASET 1
+Cost: 499.43 €
+Profit: 196.84 €
+Shares : ['Share-HITN', 'Share-GRUT']
 
- Traitement terminé.
+DATASET 2
+Cost: 497.67 €
+Profit: 194.90 €
+Shares : ['Share-GEBJ', 'Share-LFXB', 'Share-FWBE', 'Share-PLLK', 'Share-ZKSN', 'Share-ZOFA', 'Share-PATS', 'Share-DWSK', 'Share-ALIY', 'Share-ECAQ', 'Share-FAPS', 'Share-JGTW', 'Share-QLWT', 'Share-OPBR', 'Share-ANFX', 'Share-IJFT', 'Share-JWGF']
 
-real	20m17,783s
-user	4m30,695s
-sys	0m3,172s
+real	0m0,852s
+user	0m0,832s
+sys	0m0,018s
 ```
 ## Auteur
 

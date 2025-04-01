@@ -1,5 +1,10 @@
 import csv
 
+MAX_COST = 500
+DATASET1 = "dataset1_Python+P7.csv"
+DATASET2 = "dataset2_Python+P7.csv"
+DATASET0 = "Liste+dactions+-+P7+Python+-+Feuille+1.csv"
+
 
 def listFromFile(csv_file):
     """
@@ -15,8 +20,11 @@ def listFromFile(csv_file):
     liste.pop(0)
     for item in liste:
         item[1] = float(item[1])
+        if item[2][-1] == "%":
+            item[2] = item[2].strip("%")
         item[2] = float(item[2])
     return liste
+
 
 def transformData(dataset):
     """
@@ -26,13 +34,32 @@ def transformData(dataset):
     :return: a sorted list of dict
     """
     tmpset = [{'nom': x[0], 'cout': x[1],
-                   'rendement': x[2],
-                   'gain': x[1] * x[2] / 100,
-                   'ratio1': x[2] / x[1],
-                   'ratio2': (x[1] * x[2] / 100) / x[1]} for x in dataset if
-                  x[1] > 0.0 and x[2] > 0.0]
+               'rendement': x[2],
+               'gain': x[1] * x[2] / 100,
+               'ratio1': x[2] / x[1],
+               'ratio2': (x[1] * x[2] / 100) / x[1]}
+              for x in dataset if x[1] > 0.0 and x[2] > 0.0]
 
     return sorted(tmpset, key=lambda x: x['gain'], reverse=True)
+
+
+def get_results(filepath, maximum, nbr):
+    """
+    load, transform data then run the algorithm and print results
+    :param filepath: full path to csv
+    :param maximum: maximum cost
+    :param nbr: set number
+    :return: print results
+    """
+
+    action_list = transformData(listFromFile(filepath))
+    maximum_gain, selection = sacADosFloat(action_list, maximum)
+
+    print("\nDATASET", nbr)
+    print(f"Cost: {sum(x['cout'] for x in selection):.2f} €")
+    print("Profit: %.2f €" % maximum_gain)
+    print(f"Shares : {[x['nom'] for x in selection]}")
+
 
 def sacADosFloat(actions, maximum_cost):
     """
@@ -50,11 +77,18 @@ def sacADosFloat(actions, maximum_cost):
             if i == 0 or w == 0:
                 table[i][w] = 0.0
             elif actions[i-1]['cout'] <= w:
-                table[i][w] = max(actions[i-1]['gain'] + table[i-1][int(w-actions[i-1]['cout'])], table[i-1][w])
+                table[i][w] = (
+                    max(
+                        actions[i-1]['gain'] +
+                        table[i-1][int(w-actions[i-1]['cout'])],
+                        table[i-1][w]
+                    )
+                )
+
             else:
                 table[i][w] = table[i-1][w]
 
-    # Select
+    # Selection
     w = maximum_cost
     selected_actions = []
     for i in range(n, 0, -1):
@@ -65,25 +99,11 @@ def sacADosFloat(actions, maximum_cost):
     return table[n][int(maximum_cost)], selected_actions
 
 
+def main():
+    # get_results(DATASET0, MAX_COST, 0)
+    get_results(DATASET1, MAX_COST, 1)
+    get_results(DATASET2, MAX_COST, 2)
 
-actions = transformData(listFromFile("/home/b/Documents/OCR/projet7/ph3/dataset1_Python+P7.csv"))
-actions2 = transformData(listFromFile("/home/b/Documents/OCR/projet7/ph3/dataset2_Python+P7.csv"))
 
-
-
-maximum_cost = 500
-
-maximum_gain1, selection1 = sacADosFloat(actions, maximum_cost)
-maximum_gain2, selection2 = sacADosFloat(actions2, maximum_cost)
-
-print("\nDATASET 1")
-print(f"Cout: {sum(x['cout'] for x in selection1):.2f}")
-#print(f"Rendement: {sum((x['cout']*x['rendement']/100)for x in actions_selectionnees):.2f}")
-print("Gain: %.2f" % maximum_gain1)
-print(f"Actions sélectionnées: {[x['nom'] for x in selection1]}")
-
-print("\nDATASET 2")
-print(f"Cout: {sum(x['cout'] for x in selection2):.2f}")
-#print(f"Rendement: {sum((x['cout']*x['rendement']/100)for x in actions_selectionnees2):.2f}")
-print("Gain: %.2f" % maximum_gain2)
-print(f"Actions sélectionnées: {[x['nom'] for x in selection2]}")
+if __name__ == '__main__':
+    main()
