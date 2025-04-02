@@ -1,77 +1,59 @@
-# AlgoInvest&Trade
+# OCR / DA Python - Project 7
 
-Déterminer un choix optimal d'actions caractérisées par un coût et un rendement, en fonction d'un coût maximum pour un profit maximal 
+## AlgoInvest&Trade
 
-## Introduction
+Knapsack problem : create a bruteforce solution, then optimize with Dynamic Programing  
+Compare complexity and backtest
 
-Ces instructions vous permettent de :
-- récupérer le programme, 
-- d'installer l'environnement nécessaire à son exécution, 
-- de l'exécuter,
-- d'en connaitre le résultat
+### Introduction
 
+These instructions allow you to :
+- get the program
+- install the required environment
+- run and use it
 
-### Pré-requis
-
+### Requirements
+1. packages
 ```
-paquets : python 3.11, python3.11-venv, git 
-modules : csv
+packages : python 3.11, python3.11-venv, git
+module : csv 
 ```
 
 ### Installation
 
-1. créer l'environnement virtuel :
+1. Create the virtual environment
 ```
 python3.11 -m venv env
 source env/bin/activate
 ```
-2. cloner le dépôt :
-```
-git clone https://mcstn.fr/gitea/Yann/Projet7.git
-```
+2. clone this repo
 
 
-## Exécution
- 
-Pour l'algorithme bruteforce sur le dataset0, 
-exécuter la commande :
+## Execution
+
+To run the bruteforce solution -on dataset0- run :
 ```
 python3 bruteforce.py
-```  
+```
 
-Pour l'algorithme de DP, executer la commande : 
+The optimized solution run on dataset1 and dataset2 by default  
+(to run on dataset0, uncomment the corresponding line in `main()`)
 ```
 python3 optimized.py
-``` 
-
-
-## Résultat
-
-Optimized traite par défaut les datasets 1 et 2;
-Décommenter la ligne du dataset0 dans le main() si besoin
 ```
-$ time python optimized.py 
-
-DATASET 1
-Cost: 499.43 €
-Profit: 196.84 €
-Shares : ['Share-HITN', 'Share-GRUT']
-
-DATASET 2
-Cost: 497.67 €
-Profit: 194.90 €
-Shares : ['Share-GEBJ', 'Share-LFXB', 'Share-FWBE', 'Share-PLLK', 'Share-ZKSN', 'Share-ZOFA', 'Share-PATS', 'Share-DWSK', 'Share-ALIY', 'Share-ECAQ', 'Share-FAPS', 'Share-JGTW', 'Share-QLWT', 'Share-OPBR', 'Share-ANFX', 'Share-IJFT', 'Share-JWGF']
-
-real	0m0,852s
-user	0m0,832s
-sys	0m0,018s
-```
-## Auteur
-
-Yann  <yann@needsome.coffee>
 
 
+## Use
+
+The program loads data from files, transforms them and searches for the maximum solution  
+Then, displays cost, profit and list of selected actions
+
+
+## Author
+
+YaL <yann@needsome.coffee>
 
 ## License
 
-N/A
+MIT License  
+Copyright (c) 2025 
