@@ -53,7 +53,3 @@ Then, displays cost, profit and list of selected actions
 
 YaL <yann@needsome.coffee>
 
-## License
-
-MIT License  
-Copyright (c) 2025 
